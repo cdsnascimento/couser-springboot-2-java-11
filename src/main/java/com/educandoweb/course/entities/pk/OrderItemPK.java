@@ -22,7 +22,6 @@ public class OrderItemPK implements Serializable {
     @JoinColumn(name = "product_id")   
     private Product product;
 
-    
     public Order getOrder() {
         return order;
     }
@@ -31,7 +30,6 @@ public class OrderItemPK implements Serializable {
         this.order = order;
     }
 
-    
     public Product getProduct() {
         return product;
     }
