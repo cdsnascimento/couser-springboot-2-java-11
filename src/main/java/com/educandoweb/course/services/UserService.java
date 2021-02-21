@@ -3,6 +3,8 @@ package com.educandoweb.course.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import com.educandoweb.course.entities.User;
 import com.educandoweb.course.repositories.UserRepository;
 import com.educandoweb.course.services.exceptions.DataBaseException;
@@ -43,9 +45,14 @@ public class UserService {
     }
 
     public User update(Long id, User obj){
-        User entity = userRepository.getOne(id);
-        udateData(entity, obj);
-        return(userRepository.save(entity));
+        try{
+            User entity = userRepository.getOne(id);
+            udateData(entity, obj);
+            return(userRepository.save(entity));
+        } catch(EntityNotFoundException e){
+            throw new ResourceNotFoundException(id);
+        }
+
     }
 
     private void udateData(User entity, User obj) {
